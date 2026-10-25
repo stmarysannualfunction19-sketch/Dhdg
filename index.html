@@ -14,7 +14,9 @@
             --text-secondary: rgba(255, 255, 255, 0.68);
             --accent-gradient: linear-gradient(135deg, #00f2fe 0%, #4facfe 100%);
             --accent-glow: rgba(79, 172, 254, 0.45);
-            --secondary-gradient: linear-gradient(135deg, #a8ff78 0%, #78ffd6 100%);
+            --incognito-gradient: linear-gradient(135deg, #a18cd1 0%, #fbc2eb 100%);
+            --incognito-dark: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --incognito-glow: rgba(118, 75, 162, 0.5);
             --danger: #ff5e62;
         }
 
@@ -89,7 +91,7 @@
         /* Main Glass Container */
         .glass-container {
             width: 100%;
-            max-width: 1050px;
+            max-width: 1080px;
             background: var(--glass-bg);
             backdrop-filter: blur(26px);
             -webkit-backdrop-filter: blur(26px);
@@ -194,7 +196,7 @@
 
         textarea {
             width: 100%;
-            height: 300px;
+            height: 290px;
             background: rgba(0, 0, 0, 0.28);
             border: 1px solid var(--glass-border);
             border-radius: 16px;
@@ -304,7 +306,7 @@
         }
 
         .btn {
-            padding: 0.8rem 1.4rem;
+            padding: 0.8rem 1.35rem;
             border-radius: 12px;
             border: 1px solid var(--glass-border);
             background: var(--glass-highlight);
@@ -340,6 +342,19 @@
             box-shadow: 0 6px 24px rgba(79, 172, 254, 0.65);
         }
 
+        .btn-incognito {
+            background: var(--incognito-dark);
+            color: #ffffff;
+            border: 1px solid rgba(196, 163, 255, 0.4);
+            font-weight: 600;
+            box-shadow: 0 4px 18px var(--incognito-glow);
+        }
+
+        .btn-incognito:hover {
+            background: linear-gradient(135deg, #7b93ff 0%, #8e5ec2 100%);
+            box-shadow: 0 6px 24px rgba(138, 93, 190, 0.75);
+        }
+
         .btn-secondary {
             background: rgba(168, 255, 120, 0.14);
             border-color: rgba(168, 255, 120, 0.35);
@@ -366,12 +381,128 @@
             border-radius: 0 10px 10px 0;
         }
 
+        /* Incognito Glass Modal */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(5, 6, 12, 0.75);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 1.5rem;
+            z-index: 1000;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .modal-glass {
+            width: 100%;
+            max-width: 650px;
+            background: rgba(22, 24, 38, 0.85);
+            border: 1px solid rgba(196, 163, 255, 0.3);
+            border-radius: 22px;
+            padding: 2rem;
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.7), 0 0 40px rgba(118, 75, 162, 0.3);
+            transform: translateY(20px) scale(0.97);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .modal-overlay.active .modal-glass {
+            transform: translateY(0) scale(1);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .modal-header h2 {
+            font-size: 1.35rem;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            color: #e2d1ff;
+        }
+
+        .close-modal {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid var(--glass-border);
+            color: #fff;
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        .modal-step {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid var(--glass-border);
+            border-radius: 14px;
+            padding: 1.1rem;
+            margin-top: 1rem;
+        }
+
+        .modal-step h3 {
+            font-size: 0.92rem;
+            color: #b794f4;
+            margin-bottom: 0.5rem;
+        }
+
+        .modal-step p {
+            font-size: 0.83rem;
+            color: var(--text-secondary);
+            line-height: 1.5;
+            margin-bottom: 0.85rem;
+        }
+
+        .browser-select-bar {
+            display: flex;
+            gap: 0.6rem;
+            margin-bottom: 0.75rem;
+            flex-wrap: wrap;
+        }
+
+        .browser-select {
+            background: rgba(0, 0, 0, 0.45);
+            border: 1px solid var(--glass-border);
+            color: #fff;
+            padding: 0.45rem 0.75rem;
+            border-radius: 8px;
+            font-size: 0.84rem;
+            outline: none;
+        }
+
+        .cmd-box {
+            width: 100%;
+            background: rgba(0, 0, 0, 0.55);
+            border: 1px solid rgba(196, 163, 255, 0.25);
+            border-radius: 10px;
+            padding: 0.75rem;
+            font-family: monospace;
+            font-size: 0.8rem;
+            color: #d6bcfa;
+            overflow-x: auto;
+            white-space: nowrap;
+            margin-bottom: 0.75rem;
+        }
+
         /* Toast Notification */
         .toast {
             position: fixed;
             bottom: 25px;
             right: 25px;
-            background: rgba(18, 21, 33, 0.9);
+            background: rgba(18, 21, 33, 0.92);
             backdrop-filter: blur(14px);
             border: 1px solid var(--glass-border);
             color: #fff;
@@ -382,7 +513,7 @@
             transform: translateY(100px);
             opacity: 0;
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            z-index: 999;
+            z-index: 1100;
         }
 
         .toast.show {
@@ -404,7 +535,7 @@
     <main class="glass-container">
         <header>
             <h1>Clean & Launch Pipeline</h1>
-            <p>Strip line numbers from raw text or URL lists and open them all in one click</p>
+            <p>Strip line numbers from raw text or URL lists and open them in Standard or Incognito tabs</p>
         </header>
 
         <!-- Dual Editor Pipeline -->
@@ -479,20 +610,70 @@
         <!-- Unified Action Buttons -->
         <div class="actions">
             <div class="btn-group">
-                <button class="btn btn-primary" onclick="openCleanedUrls()">🚀 Open All Cleaned URLs</button>
-                <button class="btn btn-secondary" onclick="copyCleanOutput()">📄 Copy Cleaned Text</button>
+                <button class="btn btn-primary" onclick="openCleanedUrls(false)">🚀 Open All URLs</button>
+                <button class="btn btn-incognito" onclick="openIncognitoModal()">🕶️ Open in Incognito</button>
+                <button class="btn btn-secondary" onclick="copyCleanOutput()">📄 Copy Cleaned</button>
                 <button class="btn" onclick="downloadCleanOutput()">💾 Download .txt</button>
             </div>
             <div class="btn-group">
                 <button class="btn" onclick="loadCombinedSample()">📋 Load Sample</button>
-                <button class="btn btn-danger" onclick="clearAll()">🗑️ Clear All</button>
+                <button class="btn btn-danger" onclick="clearAll()">🗑️ Clear</button>
             </div>
         </div>
 
         <div class="notice">
-            💡 <strong>Pro Tip:</strong> Paste a numbered list of websites on the left—line numbers are stripped and <code>https://</code> is added automatically so you can click <strong>Open All Cleaned URLs</strong> immediately. Make sure pop-ups are allowed in your browser!
+            💡 <strong>Pro Tip:</strong> Click <strong>🚀 Open All URLs</strong> for normal tabs, or <strong>🕶️ Open in Incognito</strong> for private browsing (with no-referrer privacy or a 1-click OS command that bypasses pop-up blockers!).
         </div>
     </main>
+
+    <!-- Incognito Launcher Modal -->
+    <div id="incognito-modal" class="modal-overlay" onclick="if(event.target === this) closeIncognitoModal()">
+        <div class="modal-glass">
+            <div class="modal-header">
+                <h2>🕶️ Bulk Incognito URL Launcher</h2>
+                <button class="close-modal" onclick="closeIncognitoModal()">✕</button>
+            </div>
+            <p style="font-size: 0.84rem; color: var(--text-secondary);">
+                Browsers block regular tabs from spawning a new Incognito window directly via JavaScript. Choose either instant method below:
+            </p>
+
+            <!-- Method 1: Already in Incognito or Privacy No-Referrer Launch -->
+            <div class="modal-step">
+                <h3>Option 1: Direct Privacy Launch (If already in an Incognito Window)</h3>
+                <p>
+                    If you opened this page inside an Incognito window (<code>Ctrl+Shift+N</code> / <code>Cmd+Shift+N</code>), click below to open all <strong id="modal-url-count">0</strong> URLs directly inside your Incognito session with <code>noopener, noreferrer</code> privacy flags.
+                </p>
+                <button class="btn btn-incognito" onclick="openCleanedUrls(true); closeIncognitoModal();">
+                    🕶️ Launch Private Tabs Now
+                </button>
+            </div>
+
+            <!-- Method 2: 1-Click OS Command Generator -->
+            <div class="modal-step">
+                <h3>Option 2: Force New Incognito Window (OS Run Command)</h3>
+                <p>
+                    Want to spawn a brand-new Incognito window from a normal tab <strong>and bypass all browser pop-up blockers</strong>? Copy this command and paste it into <strong>Windows Run (<code>Win + R</code>)</strong> or your <strong>Terminal</strong>:
+                </p>
+                <div class="browser-select-bar">
+                    <select id="os-select" class="browser-select" onchange="updateIncognitoCommand()">
+                        <option value="win">Windows (Win+R / CMD)</option>
+                        <option value="mac">macOS (Terminal)</option>
+                        <option value="linux">Linux (Terminal)</option>
+                    </select>
+                    <select id="browser-select" class="browser-select" onchange="updateIncognitoCommand()">
+                        <option value="chrome">Google Chrome (--incognito)</option>
+                        <option value="edge">Microsoft Edge (--inprivate)</option>
+                        <option value="brave">Brave Browser (--incognito)</option>
+                        <option value="firefox">Firefox (-private-window)</option>
+                    </select>
+                </div>
+                <div id="incognito-cmd" class="cmd-box">chrome --incognito</div>
+                <button class="btn btn-secondary" onclick="copyIncognitoCommand()">
+                    📋 Copy Incognito Launch Command
+                </button>
+            </div>
+        </div>
+    </div>
 
     <!-- Toast Notification -->
     <div id="toast" class="toast">Action completed!</div>
@@ -502,7 +683,7 @@
             const toast = document.getElementById('toast');
             toast.textContent = msg;
             toast.classList.add('show');
-            setTimeout(() => toast.classList.remove('show'), 2600);
+            setTimeout(() => toast.classList.remove('show'), 2800);
         }
 
         function escapeRegExp(str) {
@@ -532,7 +713,6 @@
             // Step 1: Strip Line Numbers
             let processed = rawLines.map(line => {
                 if (stripMode === 'smart') {
-                    // Strips "1. ", "02) ", "[3] ", "#4 - ", "5: ", etc.
                     return line.replace(/^\s*(?:[#(\[\-]*\s*\d+\s*[\].)\-:—–/]+\s*|\d+\s+)/, '');
                 } else {
                     const escaped = escapeRegExp(customDelim);
@@ -546,12 +726,11 @@
                 processed = processed.map(l => l.trim()).filter(l => l.length > 0);
             }
 
-            // Step 2: Auto-prepend https:// if line looks like a domain/URL or autoHttps is checked
+            // Step 2: Auto-prepend https:// if line looks like a domain/URL
             if (autoHttps) {
                 processed = processed.map(line => {
                     const trimmed = line.trim();
                     if (!trimmed) return line;
-                    // Add https:// if it doesn't have http(s):// and has no spaces (looks like a link/domain)
                     if (!/^https?:\/\//i.test(trimmed) && !/\s/.test(trimmed) && trimmed.includes('.')) {
                         return 'https://' + trimmed;
                     }
@@ -592,11 +771,10 @@
             document.getElementById('url-count').textContent = `${lines.length} URL${lines.length === 1 ? '' : 's'} ready`;
         }
 
-        // Keep counts synced if user manually edits the right textarea
         document.getElementById('clean-output').addEventListener('input', updateOutputBadges);
 
-        /* --- Actions: Open URLs, Copy, Download, Sample, Clear --- */
-        function openCleanedUrls() {
+        /* --- Open URLs (Standard or Private No-Referrer Mode) --- */
+        function openCleanedUrls(isPrivateMode = false) {
             const urls = getReadyUrls();
             if (urls.length === 0) {
                 showToast('⚠️ No URLs to open! Paste numbered links on the left first.');
@@ -604,24 +782,77 @@
             }
 
             const delaySec = parseFloat(document.getElementById('tab-delay').value) || 0;
+            const windowFeatures = isPrivateMode ? 'noopener,noreferrer' : '';
             let blocked = 0;
 
             urls.forEach((url, index) => {
                 setTimeout(() => {
-                    const win = window.open(url, '_blank');
-                    if (!win) blocked++;
+                    const win = window.open(url, '_blank', windowFeatures);
+                    if (!win && !isPrivateMode) blocked++;
                     if (index === urls.length - 1 && blocked > 0) {
                         showToast(`⚠️ Pop-up blocker stopped ${blocked} tab(s). Please allow pop-ups!`);
                     }
                 }, index * delaySec * 1000);
             });
 
+            const modeLabel = isPrivateMode ? 'Private (No-Referrer)' : 'cleaned';
             showToast(delaySec === 0
-                ? `🚀 Opening ${urls.length} cleaned URL(s)...`
-                : `⏳ Opening ${urls.length} URL(s) with ${delaySec}s delay...`
+                ? `🚀 Opening ${urls.length} ${modeLabel} URL(s)...`
+                : `⏳ Opening ${urls.length} ${modeLabel} URL(s) with ${delaySec}s delay...`
             );
         }
 
+        /* --- Incognito Modal & Command Builder --- */
+        function openIncognitoModal() {
+            const urls = getReadyUrls();
+            if (urls.length === 0) {
+                showToast('⚠️ Please enter or clean at least one URL first.');
+                return;
+            }
+            document.getElementById('modal-url-count').textContent = urls.length;
+            updateIncognitoCommand();
+            document.getElementById('incognito-modal').classList.add('active');
+        }
+
+        function closeIncognitoModal() {
+            document.getElementById('incognito-modal').classList.remove('active');
+        }
+
+        function updateIncognitoCommand() {
+            const urls = getReadyUrls();
+            const os = document.getElementById('os-select').value;
+            const browser = document.getElementById('browser-select').value;
+
+            const quotedUrls = urls.map(u => `"${u.replace(/"/g, '\\"')}"`).join(' ');
+            let cmd = '';
+
+            if (os === 'win') {
+                if (browser === 'chrome') cmd = `cmd /c start chrome --incognito ${quotedUrls}`;
+                if (browser === 'edge') cmd = `cmd /c start msedge --inprivate ${quotedUrls}`;
+                if (browser === 'brave') cmd = `cmd /c start brave --incognito ${quotedUrls}`;
+                if (browser === 'firefox') cmd = `cmd /c start firefox -private-window ${quotedUrls}`;
+            } else if (os === 'mac') {
+                if (browser === 'chrome') cmd = `open -na "Google Chrome" --args --incognito ${quotedUrls}`;
+                if (browser === 'edge') cmd = `open -na "Microsoft Edge" --args --inprivate ${quotedUrls}`;
+                if (browser === 'brave') cmd = `open -na "Brave Browser" --args --incognito ${quotedUrls}`;
+                if (browser === 'firefox') cmd = `open -na "Firefox" --args -private-window ${quotedUrls}`;
+            } else {
+                if (browser === 'chrome') cmd = `google-chrome --incognito ${quotedUrls}`;
+                if (browser === 'edge') cmd = `microsoft-edge --inprivate ${quotedUrls}`;
+                if (browser === 'brave') cmd = `brave-browser --incognito ${quotedUrls}`;
+                if (browser === 'firefox') cmd = `firefox -private-window ${quotedUrls}`;
+            }
+
+            document.getElementById('incognito-cmd').textContent = cmd;
+        }
+
+        function copyIncognitoCommand() {
+            const cmd = document.getElementById('incognito-cmd').textContent;
+            navigator.clipboard.writeText(cmd);
+            showToast('🕶️ Incognito command copied! Press Win+R (or open Terminal) and paste.');
+        }
+
+        /* --- Utility Actions --- */
         function copyCleanOutput() {
             const output = document.getElementById('clean-output').value;
             if (!output) {
@@ -651,7 +882,7 @@
             document.getElementById('raw-input').value =
                 "1. google.com\n2) github.com\n03 - https://wikipedia.org\n[4] stackoverflow.com\n#5: developer.mozilla.org\n6. github.com";
             runPipeline();
-            showToast('📋 Loaded numbered URL sample (duplicates & prefixes stripped!)');
+            showToast('📋 Loaded numbered URL sample!');
         }
 
         function clearAll() {
